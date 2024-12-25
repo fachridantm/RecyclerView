@@ -1,16 +1,13 @@
 package com.dicoding.picodiploma.myrecyclerview
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.picodiploma.myrecyclerview.adapter.ListHeroAdapter
 import com.dicoding.picodiploma.myrecyclerview.model.Hero
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvHeroes: RecyclerView
@@ -29,13 +26,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     // TODO: 1. Data source of the Recycler View
-    private fun getListOfHeroes(): ArrayList<Hero>{
+    @SuppressLint("Recycle")
+    private fun getListOfHeroes(): ArrayList<Hero> {
         val dataName = resources.getStringArray(R.array.data_name)
         val dataDescription = resources.getStringArray(R.array.data_description)
         val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
         val listHero = ArrayList<Hero>()
         for (i in dataName.indices) {
-            val hero = Hero(dataName[i],dataDescription[i], dataPhoto.getResourceId(i, -1))
+            val hero = Hero(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
             listHero.add(hero)
         }
         return listHero
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         // TODO: 2. Show Adapter instantiation and how we pass the Data Source into it
         //using lambda
-        val listHeroAdapter = ListHeroAdapter(list){ data ->
+        val listHeroAdapter = ListHeroAdapter(list) { data ->
             showSelectedHero(data)
         }
 
